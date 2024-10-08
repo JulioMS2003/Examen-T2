@@ -13,8 +13,10 @@ public class CustomerDto {
     private String contacttitle;
     private String address;
     private String city;
+    private String region;
     private String postalcode;
     private String country;
     private String phone;
+    private String fax;
 
 }

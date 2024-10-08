@@ -1,19 +1,18 @@
 package pe.edu.cibertec.Examen_T2.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name="customers")
-public class Customer {
+@Table(name = "suppliers")
+public class Supplier {
 
     @Id
-    private String customerid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer supplierid;
     private String companyname;
     private String contactname;
     private String contacttitle;
@@ -24,5 +23,6 @@ public class Customer {
     private String country;
     private String phone;
     private String fax;
+    private String homepage;
 
 }

@@ -15,45 +15,44 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
 
-    //Select * From Customer where city = :city
     List<Customer> findByCity(String city);
-
-    //Select * From Customer where country = :country and city = :city
     List<Customer> findByCountryAndCity(String country, String city);
-
-    //Select * From Customer where contactname like '%:contactname%'
     List<Customer> findByContactnameContaining(String contactname);
-
-    //Select * From Customer where postalcode between :valorInicial and :valorFinal
     List<Customer> findByPostalcodeBetween(String postalCodeInicial,
                                            String postalCodeFinal);
+    List<Customer> findByCompanynameContainingOrderByCompanynameAsc(
+            String companyname);
 
-    @Query(value = "SELECT c FROM Customer c WHERE c.city=:city and c.country=:country")
+    @Query(value = "SELECT c FROM Customer c WHERE c.city=:city " +
+            "and c.country=:country")
     List<Customer> buscarClientesXCityCountry(
             @Param("city") String city,
-            @Param("country") String country
-    );
-
-    @Query(value = "SELECT c FROM Customer c WHERE c.contactname LIKE '%:contactname")
-    List<Customer> buscarClientesXContactname(
-            @Param("contactname") String contactname
-    );
+            @Param("country") String country);
 
     @Query(value = "SELECT c.country AS country, COUNT(c) AS customercount " +
             "FROM Customer c GROUP BY c.country")
-    List<CustomerCountCountryProjection> listarPaisesContarClientes();
+    List<CustomerCountCountryProjection> listaPaisesConCantidadClientes();
 
     @Transactional
     @Modifying
-    @Procedure(procedureName = "GenerateAndInsertCustomer")
+    @Query(value = "UPDATE Customer SET address=:address WHERE customerid=:customerid")
+    void actualizarDireccionCliente(@Param("address") String address,
+                                    @Param("customerid") String customerid);
+
+
+    @Transactional
+    @Modifying
+    @Procedure(procedureName = "GenerarCustomer")
     void registrarCliente(
-            @Param("companyName") String companyname,
-            @Param("contactName") String contactname,
-            @Param("contactTitle") String contacttitle,
+            @Param("companyName") String companyName,
+            @Param("contactName") String contactName,
+            @Param("contactTitle") String contactTitle,
             @Param("address") String address,
             @Param("city") String city,
-            @Param("postalCode") String postalcode,
+            @Param("region") String region,
+            @Param("postalCode") String postalCode,
             @Param("country") String country,
-            @Param("phone") String phone);
+            @Param("phone") String phone,
+            @Param("fax") String fax);
 
 }

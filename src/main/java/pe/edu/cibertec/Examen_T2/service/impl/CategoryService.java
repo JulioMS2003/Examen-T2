@@ -31,8 +31,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Optional<Category> obtenerCategoriaXnombre(String categoryname) {
-        return categoryRepository.findByCategoryname(categoryname);
+    public Optional<Category> obtenerCategoriaXnombre(String categoryName) {
+        return categoryRepository.findByCategoryname(categoryName);
     }
-
 }

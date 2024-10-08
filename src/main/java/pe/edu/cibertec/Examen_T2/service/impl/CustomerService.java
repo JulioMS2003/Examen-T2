@@ -22,9 +22,9 @@ public class CustomerService implements ICustomerService {
     @Override
     public List<CustomerDto> findByCity(String city) {
         List<CustomerDto> customerDtos = new ArrayList<>();
-        for (Customer customer : customerRepository.findByCity(city)){
+        for (Customer customer : customerRepository.findByCity(city)) {
             customerDtos.add(customerConvert
-                    .convertirCustomerADto(customer));
+                    .convertirCustomerACustomerDto(customer));
         }
         return customerDtos;
     }
@@ -32,36 +32,70 @@ public class CustomerService implements ICustomerService {
     @Override
     public List<CustomerDto> findByCountryAndCity(String country, String city) {
         List<CustomerDto> customerDtos = new ArrayList<>();
-        for (Customer customer : customerRepository.findByCountryAndCity(country, city)){
+        for (Customer customer : customerRepository.findByCountryAndCity(country, city)) {
             customerDtos.add(customerConvert
-                    .convertirCustomerADto(customer));
+                    .convertirCustomerACustomerDto(customer));
         }
         return customerDtos;
     }
 
     @Override
     public List<CustomerDto> findByContactnameContaining(String contactname) {
-        return List.of();
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        for (Customer customer : customerRepository.findByContactnameContaining(contactname)) {
+            customerDtos.add(customerConvert
+                    .convertirCustomerACustomerDto(customer));
+        }
+        return customerDtos;
     }
 
     @Override
     public List<CustomerDto> findByPostalcodeBetween(String postalCodeInicial, String postalCodeFinal) {
         List<CustomerDto> customerDtos = new ArrayList<>();
-        for (Customer customer : customerRepository.findByPostalcodeBetween(postalCodeInicial,
-                postalCodeFinal)){
+        for (Customer customer : customerRepository.findByPostalcodeBetween(postalCodeInicial, postalCodeFinal)) {
             customerDtos.add(customerConvert
-                    .convertirCustomerADto(customer));
+                    .convertirCustomerACustomerDto(customer));
+        }
+        return customerDtos;
+    }
+
+    @Override
+    public List<CustomerDto> findByCompanynameContainingOrderByCompanynameAsc(String companyname) {
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        for (Customer customer : customerRepository.findByCompanynameContainingOrderByCompanynameAsc(companyname)) {
+            customerDtos.add(customerConvert
+                    .convertirCustomerACustomerDto(customer));
         }
         return customerDtos;
     }
 
     @Override
     public List<CustomerDto> buscarClientesXCityCountry(String city, String country) {
-        return List.of();
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        for (Customer customer : customerRepository.buscarClientesXCityCountry(city, country)) {
+            customerDtos.add(customerConvert
+                    .convertirCustomerACustomerDto(customer));
+        }
+        return customerDtos;
     }
 
     @Override
-    public List<CustomerCountCountryProjection> listarPaisesContarClientes() {
-        return List.of();
+    public List<CustomerCountCountryProjection> listaPaisesConCantidadClientes() {
+        return customerRepository.listaPaisesConCantidadClientes();
+    }
+
+    @Override
+    public void registrarCustomer(CustomerDto customerDto) {
+        customerRepository.registrarCliente(customerDto.getCompanyname(),
+                customerDto.getContactname(),
+                customerDto.getContacttitle(),
+                customerDto.getAddress(),
+                customerDto.getCity(),
+                customerDto.getRegion(),
+                customerDto.getPostalcode(),
+                customerDto.getCountry(),
+                customerDto.getPhone(),
+                customerDto.getFax());
+
     }
 }

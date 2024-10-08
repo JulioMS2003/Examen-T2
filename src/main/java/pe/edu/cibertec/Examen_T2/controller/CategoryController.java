@@ -17,11 +17,11 @@ public class CategoryController {
 
     private final ICategoryService categoryService;
 
+
     @GetMapping("")
-    public ResponseEntity<List<Category>> listarCategorias() {
-        List<Category> categoryList =
-                categoryService.obtenerCategorias();
-        if (categoryList.isEmpty()) {
+    public ResponseEntity<List<Category>> listarCategorias(){
+        List<Category> categoryList = categoryService.obtenerCategorias();
+        if(categoryList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
@@ -29,19 +29,21 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> obtenerCategoriaXid(
-            @PathVariable Integer id) {
+            @PathVariable Integer id
+    ){
         Category category = categoryService.obtenerCategoria(id)
-                .orElseThrow(() -> new ResourceNotFoundException("La categoria" +
-                " con el id" + id + "no existe"));
+                .orElseThrow(() -> new ResourceNotFoundException("La categoria " +
+                        "con el id "+id+" no existe"));
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
-
+    //localhost:8080/api/v1/category?categoryName=
     @GetMapping("/")
-    public ResponseEntity<Category> obtenerCategoriaXnombre(
-            @RequestParam String categoryname) {
-        Category category = categoryService.obtenerCategoriaXnombre(categoryname)
-                .orElseThrow(() -> new ResourceNotFoundException("La categoria" +
-                        " con el nombre" + categoryname + "no existe"));
+    public ResponseEntity<Category> obtenerCategoriaXNombre(
+            @RequestParam String categoryName
+    ){
+        Category category = categoryService.obtenerCategoriaXnombre(categoryName)
+                .orElseThrow(() -> new ResourceNotFoundException("La categoria " +
+                        "con el nombew "+categoryName+" no existe"));
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
@@ -61,8 +63,8 @@ public class CategoryController {
             @RequestBody Category category
     ){
         Category currentCategory = categoryService.obtenerCategoria(id)
-                .orElseThrow(() -> new ResourceNotFoundException("la categoria" +
-                        " con el id = " + id + ", no existe"));
+                .orElseThrow(() -> new ResourceNotFoundException("La categoria" +
+                        "con el ID = "+ id+", no existe"));
         currentCategory.setCategoryname(category.getCategoryname());
         currentCategory.setDescription(category.getDescription());
         return new ResponseEntity<>(
