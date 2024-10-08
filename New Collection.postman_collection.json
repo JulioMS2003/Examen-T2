@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "e3d0c9f6-cced-4e00-8646-b770add6184a",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38291983"
+	},
+	"item": [
+		{
+			"name": "{{url-t2}}/api/v1/category/5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url-t2}}/api/v1/category/5",
+					"host": [
+						"{{url-t2}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"category",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url-t2}}/api/v1/category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url-t2}}/api/v1/category",
+					"host": [
+						"{{url-t2}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"category"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
